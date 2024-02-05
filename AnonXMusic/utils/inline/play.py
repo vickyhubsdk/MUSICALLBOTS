@@ -1,9 +1,8 @@
 import math
-
 from pyrogram.types import InlineKeyboardButton
-
 from AnonXMusic.utils.formatters import time_to_seconds
-
+from AnonXMusic import app
+from config import CHAT_GROUP, OWNER_USERNAME
 
 def track_markup(_, videoid, user_id, channel, fplay):
     buttons = [
@@ -53,6 +52,12 @@ def stream_markup_timer(_, chat_id, played, dur):
     else:
         bar = "—————————◉"
     buttons = [
+         [
+            InlineKeyboardButton(
+                text=f"{played} {bar} {dur}",
+                callback_data="GetTimer",
+            )
+        ],
         [
             InlineKeyboardButton(text="▷", callback_data=f"ADMIN Resume|{chat_id}"),
             InlineKeyboardButton(text="II", callback_data=f"ADMIN Pause|{chat_id}"),
@@ -62,9 +67,11 @@ def stream_markup_timer(_, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text=f"{played} {bar} {dur}",
-                callback_data="GetTimer",
-            )
+                text="ᴏᴡɴᴇʀ 💕", url=f"https://t.me/{OWNER_USERNAME}"
+            ),
+            InlineKeyboardButton(
+                text="💌 ᴄʜᴀᴛ ɢʀᴏᴜᴘ", url=f"{CHAT_GROUP}"
+            ),
         ],
         [InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]
@@ -79,6 +86,14 @@ def stream_markup(_, chat_id):
             InlineKeyboardButton(text="↻", callback_data=f"ADMIN Replay|{chat_id}"),
             InlineKeyboardButton(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"),
             InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
+        ],
+        [
+            InlineKeyboardButton(
+                text="ᴏᴡɴᴇʀ 💕", url=f"https://t.me/{OWNER_USERNAME}"
+            ),
+            InlineKeyboardButton(
+                text="💌 ᴄʜᴀᴛ ɢʀᴏᴜᴘ", url=f"{CHAT_GROUP}"
+            ),
         ],
         [InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]
